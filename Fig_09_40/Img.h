@@ -104,7 +104,8 @@ public:
 	Mat Gauss( float m, float sigma);
 	int factorial(int n);
 
-
+	Mat MorphologicFcn(int operation, int opening_size);
+	Mat thresHold();
 private: 
 	Mat mMat;
 	cv::String mPath;

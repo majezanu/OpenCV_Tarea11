@@ -9,6 +9,12 @@
 #include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include "Img.h" 
+#include <iostream>
+#include <stdlib.h>
 
 
 
@@ -1535,4 +1541,21 @@ int Img::factorial(int n) {
 		factorial = b * factorial;
 	}
 	return factorial;
+}
+
+Mat Img::MorphologicFcn(int operation, int opening_size)
+{
+	Mat _src = mMat;
+	Mat _dst = Mat::zeros(_src.size(), _src.type());
+	Mat element = getStructuringElement(MORPH_RECT, Size(2 * opening_size + 1, 2 * opening_size + 1), Point(opening_size, opening_size));
+
+	morphologyEx(_src, _dst, operation, element);
+	return _dst;
+}
+
+Mat Img::thresHold()
+{
+	Mat imagethreeshold;
+	cv::threshold(mMat, imagethreeshold, 0, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
+	return imagethreeshold;
 }
